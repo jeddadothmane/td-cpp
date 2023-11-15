@@ -4,8 +4,8 @@
 
 int main() {
 
-   Complex2D complex1(3.0, 4.0);
-   Complex2D complex2(1.0, 2.0);
+   Complex2D complex1(1.0, 2.0);
+   Complex2D complex2(2.0, 2.0);
 
    cout << "Complex1: ";
    complex1.printOn(cout) << endl;
@@ -28,7 +28,14 @@ int main() {
    Complex2D complex6 = complex1 / complex2;
    cout << "Complex6 (Complex1 / Complex2): ";
    complex6.printOn(cout) << endl;
-
+   // Compare the complex numbers
+   if (complex1 < complex2) {
+         std::cout << "Complex1 is less than Complex2" << std::endl;
+   } else if (complex1 > complex2) {
+         std::cout << "Complex1 is greater than Complex2" << std::endl;
+   } else {
+         std::cout << "Complex1 is equal to Complex2" << std::endl;
+   }
    // Get the radius and theta of the complex numbers
    cout << "Radius of Complex1: " << complex1.get_radius() << endl;
    cout << "Theta of Complex1: " << complex1.get_theta() << endl;
