@@ -1,5 +1,18 @@
-//
-// Created by pc on 11/01/2024.
-//
+#include "headers/Card.h"
 
-#include "Card.h"
+using namespace std;
+
+Card::Card(string name) : cardName(name) {
+
+}
+
+Card::~Card() {}
+
+string Card::getCardName() const {
+    return cardName;
+}
+
+void Card::setCardName(const string& newName) {
+    cardName = newName;
+}
+
