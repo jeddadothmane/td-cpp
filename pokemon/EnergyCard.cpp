@@ -1,20 +1,9 @@
-#include <iostream>
 #include "headers/EnergyCard.h"
+#include <iostream>
 
-using namespace std;
-
-EnergyCard::EnergyCard(const string& type)
-        : Card("Energy"), energyType(type) {}
-
-string EnergyCard::getEnergyType() const {
-    return energyType;
-}
-
-void EnergyCard::setEnergyType(const string& type) {
-    energyType = type;
-}
+EnergyCard::EnergyCard(const std::string& energyType) : Card("Energy"), energyType(energyType) {}
 
 void EnergyCard::displayInfo() const {
-    cout << "Card Name: " << getCardName() << "\n";
-    cout << "Energy Type: " << energyType << "\n";
+    std::cout << "Card Name: " << cardName << std::endl;
+    std::cout << "Energy Type: " << energyType << std::endl;
 }

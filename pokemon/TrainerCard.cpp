@@ -1,28 +1,12 @@
-#include <iostream>
-#include <vector>
 #include "headers/TrainerCard.h"
-#include "headers/PokemonCard.h"
+#include <iostream>
 
-using namespace std;
-
-TrainerCard::TrainerCard(const string& name, const string& effect)
-        : Card(name), trainerEffect(effect) {}
-
-string TrainerCard::getTrainerEffect() const {
-    return trainerEffect;
-}
-
-void TrainerCard::setTrainerEffect(const string& effect) {
-    trainerEffect = effect;
-}
+TrainerCard::TrainerCard(const std::string& cardName, const std::string& trainerEffect) : Card(cardName), trainerEffect(trainerEffect) {}
 
 void TrainerCard::displayInfo() const {
-    cout << "Trainer Name: " << getCardName() << "\n";
-    cout << "Effect: " << trainerEffect << "\n";
+    std::cout << "Card Name: " << cardName << std::endl;
+    std::cout << "Trainer Effect: " << trainerEffect << std::endl;
 }
-
-void TrainerCard::applyEffect(std::vector<PokemonCard*>& actionPokemonCards) {
-    for (auto* pokemonCard : actionPokemonCards) {
-        pokemonCard->setHP(pokemonCard->getMaxHP());
-    }
+string TrainerCard::getTrainerEffect() const {
+    return trainerEffect;
 }

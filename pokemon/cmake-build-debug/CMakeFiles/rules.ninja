@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\Users\pc\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe --regenerate-during-build -SC:\dev\pokemon -BC:\dev\pokemon\cmake-build-debug
+  command = C:\Users\pc\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe --regenerate-during-build -SC:\Users\pc\Desktop\younes-cpp\pokemon -BC:\Users\pc\Desktop\younes-cpp\pokemon\cmake-build-debug
   description = Re-running CMake...
   generator = 1
 

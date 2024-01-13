@@ -1,144 +1,104 @@
-#include "headers/Player.h"
-#include "headers/EnergyCard.h"
-#include "headers/TrainerCard.h"
 #include <iostream>
-#include <algorithm>
+#include "headers/Player.h"
+#include "headers/TrainerCard.h"
 
 using namespace std;
 
-Player::Player(const string& name) : playerName(name) {}
-
-Player::~Player() {
-
-}
+Player::Player(const string& playerName) : playerName(playerName) {}
 
 void Player::addBenchCard(Card* card) {
     benchCards.push_back(card);
 }
-void Player::activatePokemonCard(int cardIndex) {
 
-    if (cardIndex < 0 || cardIndex >= benchCards.size()) {
-        cout << "Invalid card index." << endl;
-        return;
-    }
-
-    PokemonCard* card = dynamic_cast<PokemonCard*>(benchCards[cardIndex]);
-    if (card) {
-        actionCards.push_back(card);
-        benchCards.erase(benchCards.begin() + cardIndex);
-    } else {
-        cout << "The selected card is not a PokemonCard." << endl;
-    }
+void Player::addActionCard(PokemonCard* pokemonCard) {
+    actionCards.push_back(pokemonCard);
 }
 
-void Player::attachEnergyCard(int energyCardIndex, int pokemonCardIndex) {
-    if (energyCardIndex < 0 || energyCardIndex >= benchCards.size() ||
-        pokemonCardIndex < 0 || pokemonCardIndex >= actionCards.size()) {
-        cout << "Invalid card index." << endl;
-        return;
-    }
+void Player::activatePokemonCard(int index) {
+    if (index >= 0 && index < benchCards.size()) {
+        PokemonCard* pokemonCard = dynamic_cast<PokemonCard*>(benchCards[index]);
 
-    EnergyCard* energyCard = dynamic_cast<EnergyCard*>(benchCards[energyCardIndex]);
-    PokemonCard* pokemonCard = actionCards[pokemonCardIndex];
-
-    if (energyCard && pokemonCard) {
-        pokemonCard->attachEnergy(energyCard);
-        benchCards.erase(benchCards.begin() + energyCardIndex);
-    } else {
-        cout << "Invalid operation. Either the energy or the Pokemon card is not found." << endl;
+        if (pokemonCard) {
+            benchCards.erase(benchCards.begin() + index);
+            actionCards.push_back(pokemonCard);
+            cout << "\n" << playerName << " is activating a Pokemon Card: " << pokemonCard->getCardName() << endl;
+        }
     }
 }
 
-void Player::removeBenchCard(Card* card) {
-    auto it = remove_if(benchCards.begin(), benchCards.end(),
-                             [card](const Card* c) { return c == card; });
-    if (it != benchCards.end()) {
-        benchCards.erase(it, benchCards.end());
-    }
-}
-
-void Player::addActionCard(PokemonCard* card) {
-    actionCards.push_back(card);
-}
-
-void Player::removeActionCard(PokemonCard* card) {
-    auto it = remove_if(actionCards.begin(), actionCards.end(),
-                             [card](const PokemonCard* pc) { return pc == card; });
-    if (it != actionCards.end()) {
-        actionCards.erase(it, actionCards.end());
-    }
-}
-
-string Player::getPlayerName() const {
-    return playerName;
-}
-
-const vector<Card*>& Player::getBenchCards() const {
-    return benchCards;
-}
-
-const vector<PokemonCard*>& Player::getActionCards() const {
-    return actionCards;
-}
-
-void Player::setPlayerName(const string& name) {
-    playerName = name;
-}
-
-void Player::displayBenchCards() const {
-    cout << "Bench Cards:\n";
+void Player::displayBench() const {
+    cout << "Bench cards for Player " << playerName << " :" << endl;
     for (const auto& card : benchCards) {
         card->displayInfo();
-        cout << "\n";
     }
 }
 
-void Player::displayActionCards() const {
-    cout << "Action Cards:\n";
-    for (const auto& card : actionCards) {
-        card->displayInfo();
-        cout << "\n";
+void Player::displayAction() const {
+    cout << "Action cards for Player " << playerName << " :" << endl;
+    if (!actionCards.empty()) {
+        for (const auto& card : actionCards) {
+            card->displayInfo();
+        }
     }
 }
 
-void Player::attack(int attackingPokemonIndex, int attackIndex, Player& opponent, int targetPokemonIndex) {
-    if (attackingPokemonIndex < 0 || attackingPokemonIndex >= actionCards.size() ||
-        targetPokemonIndex < 0 || targetPokemonIndex >= opponent.actionCards.size()) {
-        cout << "Invalid card index." << endl;
-        return;
-    }
+void Player::attack(int attackingPokemonIndex, int attackIndex, Player& targetPlayer, int targetPokemonIndex) {
+    if (attackingPokemonIndex >= 0 && attackingPokemonIndex < actionCards.size() &&
+        attackIndex >= 0 && attackIndex < actionCards[attackingPokemonIndex]->getAttacks().size() &&
+        targetPokemonIndex >= 0 && targetPokemonIndex < targetPlayer.actionCards.size()) {
 
-    PokemonCard* attackingPokemon = actionCards[attackingPokemonIndex];
-    PokemonCard* targetPokemon = opponent.actionCards[targetPokemonIndex];
+        PokemonCard* attackingPokemon = dynamic_cast<PokemonCard*>(actionCards[attackingPokemonIndex]);
+        PokemonCard* targetPokemon = dynamic_cast<PokemonCard*>(targetPlayer.actionCards[targetPokemonIndex]);
 
-    int damage = attackingPokemon->calculateAttackDamage(attackIndex);
-    if (damage < 0) {
-        cout << "Attack not possible." << endl;
-        return;
-    }
+        if (attackingPokemon && targetPokemon) {
+            const vector<tuple<int, int, string, int>>& attacks = attackingPokemon->getAttacks();
+            const tuple<int, int, string, int>& attack = attacks[attackIndex];
 
-    targetPokemon->reduceHP(damage);
-    cout << "Attacking " << targetPokemon->getCardName() << " with damage: " << damage << endl;
+            int attackCost = get<0>(attack);
+            int currentEnergyStorage = get<1>(attack);
 
-    if (targetPokemon->getHP() <= 0) {
-        cout << targetPokemon->getCardName() << " is defeated." << endl;
-    }
-}
+            if (currentEnergyStorage >= attackCost) {
+                int damage = get<3>(attack);
+                cout << "\n" << playerName << " attacking " << targetPlayer.playerName << "’s Pokemon "
+                     << targetPokemon->getCardName() << " with the Pokemon " << attackingPokemon->getCardName()
+                     << " with its attack: " << get<2>(attack) << endl;
 
-void Player::useTrainer(int trainerCardIndex) {
-    // Check if the index is valid
-    if (trainerCardIndex < 0 || trainerCardIndex >= benchCards.size()) {
-        cout << "Invalid card index." << endl;
-        return;
-    }
+                int newHP = targetPokemon->getCurrentHP() - damage;
+                targetPokemon->setCurrentHP(newHP);
 
-    TrainerCard* trainerCard = dynamic_cast<TrainerCard*>(benchCards[trainerCardIndex]);
-    if (trainerCard) {
-        // Assuming applyEffect requires a vector of PokemonCard pointers
-        trainerCard->applyEffect(actionCards);
-    } else {
-        std::cout << "The selected card is not a Trainer card." << std::endl;
+                cout << "\nReducing " << damage << " from " << targetPlayer.playerName << "’s Pokemon’s HP" << endl;
+                cout << "\nPokemon " << targetPokemon->getCardName() << " is " << (newHP > 0 ? "still alive" : "fainted") << endl;
+            }
+        }
     }
 }
 
+void Player::useTrainer(int trainerIndex) {
+    if (trainerIndex >= 0 && trainerIndex < benchCards.size()) {
+        TrainerCard* trainerCard = dynamic_cast<TrainerCard*>(benchCards[trainerIndex]);
+        if (trainerCard) {
+            cout << "\n" << playerName << " is using the Trainer Card to \"" << trainerCard->getTrainerEffect() << "\"" << endl;
 
+            for (Card* card : actionCards) {
+                PokemonCard* pokemonCard = dynamic_cast<PokemonCard*>(card);
+                if (pokemonCard) {
+                    pokemonCard->setMaxHP();
+                }
+            }
+        }
+    }
+}
+
+void Player::attachEnergyCard(int pokemonIndex, int energyIndex) {
+    if (pokemonIndex >= 0 && pokemonIndex < actionCards.size() &&
+        energyIndex >= 0 && energyIndex < benchCards.size()) {
+        PokemonCard* pokemon = dynamic_cast<PokemonCard*>(actionCards[pokemonIndex]);
+        EnergyCard* energyCard = dynamic_cast<EnergyCard*>(benchCards[energyIndex]);
+
+        if (pokemon && energyCard) {
+            cout << "\n" << playerName << " is attaching Energy Card of type " << pokemon->getPokemonType() << " to the Pokemon " << pokemon->getCardName() << endl;
+
+            pokemon->attachEnergy(energyCard);
+        }
+    }
+}

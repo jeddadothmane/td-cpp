@@ -2,22 +2,18 @@
 #define TRAINERCARD_H
 
 #include "Card.h"
-#include "PokemonCard.h"
-#include <string>
+
+using namespace std;
 
 class TrainerCard : public Card {
+public:
+    TrainerCard(const std::string& cardName, const std::string& trainerEffect);
+    virtual void displayInfo() const override;
+    string getTrainerEffect() const;
+
 private:
     std::string trainerEffect;
 
-public:
-    TrainerCard(const std::string& name, const std::string& effect);
-
-    std::string getTrainerEffect() const;
-    void setTrainerEffect(const std::string& effect);
-
-    virtual void displayInfo() const override;
-
-    void applyEffect(std::vector<PokemonCard*>& actionPokemonCards);
 };
 
-#endif
+#endif // TRAINERCARD_H

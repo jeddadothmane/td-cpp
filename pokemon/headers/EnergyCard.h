@@ -2,21 +2,14 @@
 #define ENERGYCARD_H
 
 #include "Card.h"
-#include <string>
-
-using namespace std;
 
 class EnergyCard : public Card {
-private:
-    string energyType;
-
 public:
-    EnergyCard(const string& type);
-
-    string getEnergyType() const;
-    void setEnergyType(const string& type);
-
+    EnergyCard(const std::string& energyType);
     virtual void displayInfo() const override;
+
+private:
+    std::string energyType;
 };
 
-#endif
+#endif // ENERGYCARD_H

@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/dev/pokemon/cmake-build-debug"
+			"value" : "c:/Users/pc/Desktop/younes-cpp/pokemon/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -575,7 +575,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/dev/pokemon/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/pc/Desktop/younes-cpp/pokemon/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -647,7 +647,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/dev/pokemon"
+			"value" : "C:/Users/pc/Desktop/younes-cpp/pokemon"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1291,7 +1291,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/dev/pokemon/cmake-build-debug"
+			"value" : "C:/Users/pc/Desktop/younes-cpp/pokemon/cmake-build-debug"
 		},
 		{
 			"name" : "pokemon_IS_TOP_LEVEL",
@@ -1315,7 +1315,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/dev/pokemon"
+			"value" : "C:/Users/pc/Desktop/younes-cpp/pokemon"
 		}
 	],
 	"kind" : "cache",

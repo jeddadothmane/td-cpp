@@ -3,18 +3,14 @@
 
 #include <string>
 
-using namespace std;
-
 class Card {
 public:
-    string cardName;
-
+    Card(const std::string& cardName);
+    virtual ~Card();
     virtual void displayInfo() const = 0;
 
-    Card(string name);
-    virtual ~Card();
-    string getCardName() const;
-    void setCardName(const std::string& newName);
+protected:
+    std::string cardName;
 };
 
 #endif

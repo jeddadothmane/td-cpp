@@ -4,13 +4,13 @@ project(pokemon)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(pokemon main.cpp
-        headers/Card.h
         Card.cpp
-        headers/PokemonCard.h
+        headers/Card.h
         PokemonCard.cpp
-        headers/EnergyCard.h
+        headers/PokemonCard.h
         EnergyCard.cpp
-        headers/TrainerCard.h
+        headers/EnergyCard.h
         TrainerCard.cpp
-        headers/Player.h
-        Player.cpp)
+        headers/TrainerCard.h
+        Player.cpp
+        headers/Player.h)

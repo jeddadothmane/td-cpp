@@ -1,13 +1,9 @@
 # ninja log v5
-6	811	7267132513203594	CMakeFiles/pokemon.dir/Card.cpp.obj	2b0aaf02a4dc75e6
-812	1185	7267132516814762	pokemon.exe	8c70c3af4cf2997b
-1	1012	7267124881373386	CMakeFiles/pokemon.dir/main.cpp.obj	fb4c0d5a84bdea8a
-15	1180	7267184290439714	CMakeFiles/pokemon.dir/Card.cpp.obj	2b0aaf02a4dc75e6
-42	1407	7267184292723141	CMakeFiles/pokemon.dir/EnergyCard.cpp.obj	bd817736266e6b7
-33	1590	7267184294603051	CMakeFiles/pokemon.dir/TrainerCard.cpp.obj	ea095820bcd9070b
-5	1638	7267184295066996	CMakeFiles/pokemon.dir/main.cpp.obj	fb4c0d5a84bdea8a
-24	2357	7267184302248619	CMakeFiles/pokemon.dir/PokemonCard.cpp.obj	5a90abc387ba347b
-52	2435	7267184303042931	CMakeFiles/pokemon.dir/Player.cpp.obj	e1afe36e91896883
-2435	2947	7267184308055936	pokemon.exe	896eabb5a237f92d
-4	1117	7267184574984140	CMakeFiles/pokemon.dir/main.cpp.obj	fb4c0d5a84bdea8a
-1118	1575	7267184579473162	pokemon.exe	896eabb5a237f92d
+12	1904	7268795484454702	CMakeFiles/pokemon.dir/Card.cpp.obj	d683f57f8caac0a3
+56	1950	7268795484969802	CMakeFiles/pokemon.dir/EnergyCard.cpp.obj	b5717590a5fd3d17
+105	2019	7268795485632962	CMakeFiles/pokemon.dir/TrainerCard.cpp.obj	88283c07e1a0b2d0
+4	2056	7268797704935391	CMakeFiles/pokemon.dir/main.cpp.obj	ee1dd9f44b3cc42c
+15	2088	7268797705296549	CMakeFiles/pokemon.dir/PokemonCard.cpp.obj	e4a1fbaf4295dc03
+24	2231	7268797706703210	CMakeFiles/pokemon.dir/Player.cpp.obj	92b2174b01a3cdf8
+5	1843	7268799316687052	CMakeFiles/pokemon.dir/Player.cpp.obj	92b2174b01a3cdf8
+1845	2332	7268799321450498	pokemon.exe	896eabb5a237f92d

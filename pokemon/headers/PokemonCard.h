@@ -1,49 +1,58 @@
 #ifndef POKEMONCARD_H
 #define POKEMONCARD_H
 
+#include <vector>
+#include <iostream>
+#include <tuple>
 #include "Card.h"
 #include "EnergyCard.h"
-#include <vector>
-#include <tuple>
-#include <string>
 
-class PokemonCard : public Card {
+using namespace std;
+
+class PokemonCard:public Card {
+public:
+
+    PokemonCard(const string& cardName, const string& pokemonType,
+                const string& familyName, int evolutionLevel,
+                int maxHP, int hp,
+                const vector<tuple<int, int, string, int>>& attacks);
+    void displayInfo() const override;
+
+    PokemonCard();
+
+    void setPokemonType(const string& setPokemonType);
+    void setfamilyName(const string& familyName);
+    void setevolutionLevel(const int& evolutionLevel);
+    void setfamilyName(const int& familyName);
+    void setMaxHP(){
+        hp = maxHP;
+    }
+    void setHp(const int& hp);
+    void setAttacks(const vector<tuple<int, int, string, int>>& attacks);
+    void setCardName(const string& cardName);
+    string getCardName() const{
+        return cardName;
+    }
+    int getCurrentHP() const;
+    void setCurrentHP(int hp);
+    void attachEnergy(EnergyCard* energyCard);
+    const vector<tuple<int, int, string, int>>& getAttacks() const;
+    string getPokemonType() const {
+        return pokemonType;
+    }
 private:
-
     string pokemonType;
     string familyName;
     int evolutionLevel;
     int maxHP;
     int hp;
     vector<tuple<int, int, string, int>> attacks;
-    std::vector<EnergyCard*> attachedEnergyCards;
-
-public:
-    PokemonCard(string name, string type, string family, int evoLevel, int maxHp, int health,
-                const char *attacks, int i, int i1, const char string1[14], int i2);
-
-    string getPokemonType() const;
-    void setPokemonType(const string &type);
-
-    string getFamilyName() const;
-    void setFamilyName(const string &family);
-
-    int getEvolutionLevel() const;
-    void setEvolutionLevel(int level);
-
-    int getMaxHP() const;
-    void setMaxHP(int maxHp);
-
-    int getHP() const;
-    void setHP(int health);
-
-    void addAttack(int energyCost, int currentEnergyCost, string description, int damage);
-
-    void attachEnergy(EnergyCard* energyCard);
-    int calculateAttackDamage(int attackIndex);
-    void reduceHP(int damage);
-
-    virtual void displayInfo() const override;
+    vector<EnergyCard*> attachedEnergyCards;
+    int attackCost;
+    int currentEnergyStorage;
+    string attackDescription;
+    int attackDamage;
 };
 
 #endif
+
